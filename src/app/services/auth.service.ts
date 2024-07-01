@@ -17,8 +17,10 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, { username, password }).pipe(
       tap((response) => {
         const role = this.getRoleFromUsername(username);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', role);
+        if (this.isBrowser()) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', role);
+        }
       }),
       catchError((error) => {
         alert('Login failed');
@@ -27,23 +29,24 @@ export class AuthService {
     );
   }
   private getRoleFromUsername(username: string): string {
-    if (username === 'admin') {
-      return 'Admin';
-    } else {
-      return 'User';
-    }
+    return username === 'admin' ? 'Admin' : 'User';
   }
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    if (this.isBrowser()) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+    }
     this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return this.isBrowser() && !!localStorage.getItem('token');
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem('role');
+    return this.isBrowser() ? localStorage.getItem('role') : null;
+  }
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 }

@@ -1,2 +1,13 @@
-<h1>User Dashboard</h1>
-<p>Welcome, User!</p>
+<div class="user-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>User Dashboard</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Welcome to the User Dashboard!</p>
+      <button mat-raised-button color="primary" (click)="navigateToAdmin()">
+        Go to Admin Dashboard
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,3 +1,18 @@
-<button (click)="logout()">Logout</button>
-
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="end center">
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-menu>
 <router-outlet />

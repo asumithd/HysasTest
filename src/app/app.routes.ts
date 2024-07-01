@@ -20,6 +20,7 @@ export const routes: Routes = [
     data: { role: 'User' },
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];
 
 export const appRoutingProviders: any[] = [];

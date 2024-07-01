@@ -3,16 +3,32 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
+  ],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -34,7 +50,8 @@ export class LoginComponent {
         },
         (error) => {
           console.error('Login error:', error); // Log the error for debugging
-          alert('Login failed. Please check your username and password.'); // User-friendly error message
+          this.errorMessage =
+            'Login failed. Please check your username and password.'; //alert
         }
       );
     } else {
