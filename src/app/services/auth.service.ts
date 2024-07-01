@@ -8,23 +8,31 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://angularapi-dlal.onrender.com/api/auth/login';
+  // private apiUrl = 'https://angularapi-dlal.onrender.com/api/auth/login';
+  private apiUrl = '/api/auth/login';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, { username, password }).pipe(
-      tap(response => {
+      tap((response) => {
+        const role = this.getRoleFromUsername(username);
         localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
+        localStorage.setItem('role', role);
       }),
-      catchError(error => {
+      catchError((error) => {
         alert('Login failed');
         return throwError(error);
       })
     );
   }
-
+  private getRoleFromUsername(username: string): string {
+    if (username === 'admin') {
+      return 'Admin';
+    } else {
+      return 'User';
+    }
+  }
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');

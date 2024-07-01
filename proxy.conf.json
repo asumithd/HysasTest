@@ -3,9 +3,6 @@
     "target": "https://angularapi-dlal.onrender.com",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "logLevel": "debug"
   }
 }

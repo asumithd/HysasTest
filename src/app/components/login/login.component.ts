@@ -22,9 +22,15 @@ export class LoginComponent {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(
         (response) => {
-          // Handle successful login based on your authentication flow
-          console.log('Login successful:', response); // Optional logging for debugging
-          this.router.navigate(['/']); // Assuming this is the home route
+          console.log('Login successful:', response);
+          const role = this.authService.getUserRole();
+          if (role === 'Admin') {
+            this.router.navigate(['/admin']);
+          } else if (role === 'User') {
+            this.router.navigate(['/user']);
+          } else {
+            this.router.navigate(['/login']);
+          }
         },
         (error) => {
           console.error('Login error:', error); // Log the error for debugging
@@ -32,8 +38,7 @@ export class LoginComponent {
         }
       );
     } else {
-      console.log('no data')
+      console.log('no data');
     }
-
   }
 }
