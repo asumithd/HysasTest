@@ -17,3 +17,32 @@ mat-form-field {
 button {
   width: 100%;
 }
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+mat-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+}
+.login-button {
+  display: flex;
+  align-items: center; /* Vertically center button content */
+  justify-content: center; /* Horizontally center button content */
+}
+
+mat-spinner {
+  margin-left: 10px; /* Adjust spacing as needed */
+  width: 20px; /* Set spinner size */
+  height: 20px; /* Set spinner size */
+}
+@media (max-width: 600px) {
+  .login-container {
+    padding: 10px;
+  }
+}

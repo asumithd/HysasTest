@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { AuthGuard } from './gurds/auth.guard';
 import { UserComponent } from './components/user/user.component';
-import { provideRouter } from '@angular/router';
+import { AuthGuard } from './gurds/auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +21,3 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
-
-export const appRoutingProviders: any[] = [];
-
-export const routing = provideRouter(routes);

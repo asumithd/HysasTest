@@ -8,7 +8,6 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  // private apiUrl = 'https://angularapi-dlal.onrender.com/api/auth/login';
   private apiUrl = '/api/auth/login';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -20,17 +19,21 @@ export class AuthService {
         if (this.isBrowser()) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', role);
+          console.log('Login successful', { token: response.token, role });
         }
       }),
       catchError((error) => {
         alert('Login failed');
+        console.error('Login error', error);
         return throwError(error);
       })
     );
   }
+
   private getRoleFromUsername(username: string): string {
     return username === 'admin' ? 'Admin' : 'User';
   }
+
   logout() {
     if (this.isBrowser()) {
       localStorage.removeItem('token');
@@ -40,12 +43,17 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return this.isBrowser() && !!localStorage.getItem('token');
+    const isAuthenticated = this.isBrowser() && !!localStorage.getItem('token');
+    console.log('isAuthenticated', isAuthenticated);
+    return isAuthenticated;
   }
 
   getUserRole(): string | null {
-    return this.isBrowser() ? localStorage.getItem('role') : null;
+    const role = this.isBrowser() ? localStorage.getItem('role') : null;
+    console.log('getUserRole', role);
+    return role;
   }
+
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }

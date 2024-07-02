@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css',
+  styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
   constructor(private router: Router) {}
 
   navigateToUser() {
+    console.log('Navigating to user');
     this.router.navigate(['/user']);
   }
 }

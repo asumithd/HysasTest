@@ -6,7 +6,6 @@
     <mat-card-content>
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <mat-card>
-
           <mat-card-content>
             <div>
               <mat-form-field>
@@ -44,17 +43,16 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <div>
-              <button
+            <button class="login-button"
                 mat-raised-button
                 color="primary"
                 type="submit"
                 [disabled]="loginForm.invalid"
               >
                 Login
+                <!-- <mat-spinner *ngIf="isSpinner"></mat-spinner> -->
               </button>
               <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
-            </div>
           </mat-card-actions>
         </mat-card>
       </form>
