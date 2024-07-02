@@ -9,8 +9,8 @@ import { tap, catchError } from 'rxjs/operators';
 
 })
 export class AuthService {
-  // private apiUrl = '/api/auth/login'; // local
-  private apiUrl = 'https://angularapi-dlal.onrender.com/api/auth/login'; // production
+  private apiUrl = '/api/auth/login'; // local
+  // private apiUrl = 'https://angularapi-dlal.onrender.com/api/auth/login'; // production
 
   constructor(private http: HttpClient, private router: Router) {}
 
