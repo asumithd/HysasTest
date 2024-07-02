@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
     const userRole = this.authService.getUserRole();
     const isAuthenticated = this.authService.isAuthenticated();
 
-    console.log('AuthGuard: canActivate', { expectedRole, userRole, isAuthenticated });
 
     if (isAuthenticated && userRole === expectedRole) {
       return true;

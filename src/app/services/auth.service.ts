@@ -6,6 +6,7 @@ import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
+
 })
 export class AuthService {
   private apiUrl = '/api/auth/login';
@@ -19,11 +20,9 @@ export class AuthService {
         if (this.isBrowser()) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', role);
-          console.log('Login successful', { token: response.token, role });
         }
       }),
       catchError((error) => {
-        alert('Login failed');
         console.error('Login error', error);
         return throwError(error);
       })
@@ -44,13 +43,11 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const isAuthenticated = this.isBrowser() && !!localStorage.getItem('token');
-    console.log('isAuthenticated', isAuthenticated);
     return isAuthenticated;
   }
 
   getUserRole(): string | null {
     const role = this.isBrowser() ? localStorage.getItem('role') : null;
-    console.log('getUserRole', role);
     return role;
   }
 

@@ -35,7 +35,16 @@ mat-card {
   align-items: center; /* Vertically center button content */
   justify-content: center; /* Horizontally center button content */
 }
-
+.mat-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+.custom-spinner .mdc-button__label {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
 mat-spinner {
   margin-left: 10px; /* Adjust spacing as needed */
   width: 20px; /* Set spinner size */

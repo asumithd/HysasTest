@@ -10,6 +10,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -24,25 +29,35 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSelectModule,
     MatIconModule,
     MatProgressSpinnerModule,
+
   ],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  errorMessage: string | null = null;
   isSpinner : boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private snackBar: MatSnackBar) {}
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+
+
+  openSnackBar(message:string,actionMsg:string |undefined) {
+    this.snackBar.open(message, actionMsg, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000
+    });
+  }
   onSubmit() {
-    console.log(this.username, 'this.username');
-    console.log(this.password, 'this.password');
     this.isSpinner= true;
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(
         (response) => {
-          console.log('Login successful:', response);
+          this.openSnackBar('Login successful.',undefined);
           const role = this.authService.getUserRole();
           if (role === 'Admin') {
             this.router.navigate(['/admin']);
@@ -54,10 +69,8 @@ export class LoginComponent {
           this.isSpinner= false;
         },
         (error) => {
-          console.error('Login error:', error); // Log the error for debugging
-          this.errorMessage =
-            'Login failed. Please check your username and password.'; //alert
-
+          console.error('Login error:', error);
+          this.openSnackBar('Login failed. Please check your username and password.','Try again');
             this.isSpinner= false;
         }
       );

@@ -16,7 +16,6 @@ export class AdminComponent {
   constructor(private router: Router) {}
 
   navigateToUser() {
-    console.log('Navigating to user');
     this.router.navigate(['/user']);
   }
 }
